@@ -1,5 +1,3 @@
-// ES5
-
 function Validator() {
     this.validate = function (regex, str) {
         return regex.test(str);
@@ -13,7 +11,7 @@ function EmailValidator() {
     }
 }
 EmailValidator.prototype = Object.create(Validator.prototype);
-EmailValidator.prototype.constructor = Object.create(Validator.prototype);
+EmailValidator.prototype.constructor = EmailValidator;
 
 
 function DomainValidator() {
@@ -24,7 +22,7 @@ function DomainValidator() {
     }
 }
 DomainValidator.prototype = Object.create(Validator.prototype);
-DomainValidator.prototype.constructor = Object.create(Validator.prototype);
+DomainValidator.prototype.constructor = DomainValidator;
 
 function DateValidator() {
     Validator.call(this);
@@ -34,7 +32,7 @@ function DateValidator() {
     }
 }
 DateValidator.prototype = Object.create(Validator.prototype);
-DateValidator.prototype.constructor = Object.create(Validator.prototype);
+DateValidator.prototype.constructor = DateValidator;
 
 function PhoneValidator() {
     Validator.call(this);
@@ -44,7 +42,7 @@ function PhoneValidator() {
     }
 }
 PhoneValidator.prototype = Object.create(Validator.prototype);
-PhoneValidator.prototype.constructor = Object.create(Validator.prototype);
+PhoneValidator.prototype.constructor = PhoneValidator;
 
 var mailValidator = new EmailValidator();
 var domainValidator = new DomainValidator();
