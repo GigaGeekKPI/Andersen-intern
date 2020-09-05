@@ -1,5 +1,7 @@
 Function.prototype.bindPoly = function (context, ...args) {
+    // Saving reference to the function (closure)
     let func = this;
+    
     return function (...rest) {
         return func.call(context, ...args, ...rest);
     }

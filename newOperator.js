@@ -1,6 +1,9 @@
 function newOperator(constructor, ...args) {
+    // Creating reference to constructor via prototype
     let instance = Object.create(constructor.prototype);
+    // Extending 'this'
     constructor.apply(instance, args);
+    // Returning instance
     return instance;
 }
 
