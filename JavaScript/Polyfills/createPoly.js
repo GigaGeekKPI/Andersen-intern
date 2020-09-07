@@ -3,11 +3,11 @@ Object.createPoly = function (context, descriptors = {}) {
         throw new TypeError(context + ' is not an object');
     }
 
-    let res = {};
-
-    res.__proto__ = context;
-    Object.defineProperties(res, descriptors);
-    return res;
+    function C() {}
+    C.prototype = context;
+    let res = new C();
+    
+    return Object.defineProperties(res, descriptors);
 }
 
 //Example
