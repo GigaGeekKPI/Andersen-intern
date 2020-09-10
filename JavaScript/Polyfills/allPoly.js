@@ -1,15 +1,15 @@
 Promise.all = function (promises) {
 
   return new Promise(function (resolve, reject) {
-    let res = [];
-    let counter = 0;
+    let resArray = [];
+    let resolvedCounter = 0;
 
     function promiseValueHandler(val, index) {
-      res[index] = val;
-      counter++;
+      resArray[index] = val;
+      resolvedCounter++;
 
-      if (counter === promises.length) {
-        resolve(res);
+      if (resolvedCounter === promises.length) {
+        resolve(resArray);
       }
     }
 
