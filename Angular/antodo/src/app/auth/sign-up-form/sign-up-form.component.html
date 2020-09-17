@@ -1,0 +1,25 @@
+<form novalidate [formGroup]="signUpForm">
+    <label>Name
+        <input type="text" formControlName='name'></label>
+        <div *ngIf='name.invalid && name.touched'>
+            <p *ngIf='name.errors.required'><b>This field is required</b></p>
+            <p *ngIf='name.errors.maxlength'><b>Field length must be less than 12 characters</b></p>
+        </div>
+
+    <label>Password
+        <input type="password" formControlName='password'></label>
+        <div *ngIf='password.invalid && password.touched'>
+            <p *ngIf='password.errors.required'><b>This field is required</b></p>
+            <p *ngIf='password.errors.minlength'><b>Field length must be more than 8 characters</b></p>
+            <p *ngIf='password.errors.maxlength'><b>Field length must be less than 20 characters</b></p>
+        </div>
+
+    <label>Password again
+        <input type="password" formControlName='confirm'></label>
+        <div *ngIf='confirm.invalid && confirm.touched'>
+            <p *ngIf='confirm.errors.required'><b>This field is required</b></p>
+        </div>
+    <button mat-raised-button [disabled]="!signUpForm.valid" (click)='onSubmit()'>Submit</button>
+</form>
+{{signUpForm.value | json}}
+{{signUpForm.status }}
