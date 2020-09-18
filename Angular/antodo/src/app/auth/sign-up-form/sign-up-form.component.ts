@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
+import { passwordValidator } from '../passwordValidator'
+
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
@@ -14,7 +16,7 @@ export class SignUpFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private signUpService: AuthService) { }
 
   ngOnInit(): void {
-    this.signUpForm = this.initForm();
+    this.initForm();
   }
 
   get name() {
@@ -28,7 +30,7 @@ export class SignUpFormComponent implements OnInit {
   }
 
   initForm() {
-    return (this.fb.group({
+    this.signUpForm = this.fb.group({
       name: ['', [
         Validators.required,
         Validators.maxLength(12)
@@ -42,7 +44,7 @@ export class SignUpFormComponent implements OnInit {
       confirm: ['', [
         Validators.required
       ]]
-    }));
+    }, { validator: passwordValidator });
   }
 
   onSubmit() {

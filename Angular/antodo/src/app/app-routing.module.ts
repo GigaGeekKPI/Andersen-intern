@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignUpFormComponent } from './auth/sign-up-form/sign-up-form.component'
 
 const routes: Routes = [
-  {path: '', component: SignUpFormComponent, pathMatch: 'full'}
+  {path: 'registration', component: SignUpFormComponent},
+  {path: '', redirectTo: 'registration', pathMatch: 'full'}
 ];
 
 @NgModule({
