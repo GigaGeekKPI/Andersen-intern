@@ -1,26 +1,36 @@
-<form novalidate [formGroup]="signUpForm">
-    <label>Name
-        <input type="text" formControlName='name'></label>
-        <div *ngIf='name.invalid && name.touched'>
-            <p *ngIf='name.errors.required'><b>This field is required</b></p>
-            <p *ngIf='name.errors.maxlength'><b>Field length must be less than 12 characters</b></p>
-        </div>
+<mat-card>
+    <h1>Sign up</h1>
+    <form novalidate [formGroup]="signUpForm">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName='name'>
+            <mat-error *ngIf='name.invalid && name.touched'>
+                <p *ngIf='name.errors.required'>This field is required</p>
+                <p *ngIf='name.errors.maxlength'>Field length must be less than 12 characters</p>
+            </mat-error>
+        </mat-form-field>
 
-    <label>Password
-        <input type="password" formControlName='password'></label>
-        <div *ngIf='password.invalid && password.touched'>
-            <p *ngIf='password.errors.required'><b>This field is required</b></p>
-            <p *ngIf='password.errors.minlength'><b>Field length must be more than 8 characters</b></p>
-            <p *ngIf='password.errors.maxlength'><b>Field length must be less than 20 characters</b></p>
-        </div>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName='password'>
+            <mat-error *ngIf='password.invalid && password.touched'>
+                <p *ngIf='password.errors.required'>This field is required</p>
+                <p *ngIf='password.errors.minlength'>Field length must be more than 8 characters</p>
+                <p *ngIf='password.errors.maxlength'>Field length must be less than 20 characters</p>
+            </mat-error>
+        </mat-form-field>
 
-    <label>Password again
-        <input type="password" formControlName='confirm'></label>
-        <div *ngIf='confirm.invalid && confirm.touched'>
-            <p *ngIf='confirm.errors.required'><b>This field is required</b></p>
-        </div>
-        
-    <button mat-raised-button [disabled]="!signUpForm.valid" (click)='onSubmit()'>Submit</button>
-</form>
+        <mat-form-field>
+            <mat-label>Password again</mat-label>
+            <input matInput type="password" formControlName='confirm'>
+            <mat-error *ngIf='confirm.invalid && confirm.touched'>
+                <p *ngIf='confirm.errors.required'>This field is required</p>
+            </mat-error>
+
+        </mat-form-field>
+        <button mat-raised-button [disabled]="!signUpForm.valid" (click)='onSubmit()'>Sign Up</button>
+    </form>
+    <p>Already have an account ? <a [routerLink]=''>Go to login</a></p>
+</mat-card>
 {{signUpForm.value | json}}
 {{signUpForm.status }}
