@@ -19,6 +19,7 @@
         <div *ngIf='confirm.invalid && confirm.touched'>
             <p *ngIf='confirm.errors.required'><b>This field is required</b></p>
         </div>
+        
     <button mat-raised-button [disabled]="!signUpForm.valid" (click)='onSubmit()'>Submit</button>
 </form>
 {{signUpForm.value | json}}

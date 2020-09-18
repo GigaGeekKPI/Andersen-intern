@@ -16,7 +16,15 @@ export class SignUpService {
   constructor(private http: HttpClient ) { }
 
   addUser(form: FormGroup): void {
-    let formData = JSON.stringify(form.value);
+    let filteredForm = {};
+
+    for (let prop in form.value) {
+      if(prop !== 'confirm') {
+        filteredForm[prop] = form.value[prop];
+      }
+    }
+
+    let formData = JSON.stringify(filteredForm);
     console.log(formData);
     // this.http.post(this.serverUrl, formData, this.httpOptions).subscribe();
     console.log('Added user');
