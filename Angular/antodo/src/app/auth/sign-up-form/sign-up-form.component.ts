@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SignUpService } from '../sign-up.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -9,35 +9,40 @@ import { SignUpService } from '../sign-up.service';
 })
 export class SignUpFormComponent implements OnInit {
 
-  signUpForm: FormGroup = this.fb.group({
-    name: ['', [
-      Validators.required,
-      Validators.maxLength(12)
-    ]],
-    password: ['', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(20),
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
-    ]],
-    confirm: ['', [
-      Validators.required
-    ]]
-  });
+  signUpForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private signUpService: SignUpService) { }
+  constructor(private fb: FormBuilder, private signUpService: AuthService) { }
 
   ngOnInit(): void {
+    this.signUpForm = this.initForm();
   }
 
-  get name () {
+  get name() {
     return this.signUpForm.get('name');
   }
-  get password () {
+  get password() {
     return this.signUpForm.get('password');
   }
-  get confirm () {
+  get confirm() {
     return this.signUpForm.get('confirm');
+  }
+
+  initForm() {
+    return (this.fb.group({
+      name: ['', [
+        Validators.required,
+        Validators.maxLength(12)
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
+      ]],
+      confirm: ['', [
+        Validators.required
+      ]]
+    }));
   }
 
   onSubmit() {

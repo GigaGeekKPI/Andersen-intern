@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class SignUpService {
+export class AuthService {
 
   serverUrl: string = 'Some url';
 
