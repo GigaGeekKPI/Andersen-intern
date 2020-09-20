@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SignUpFormComponent } from './auth/sign-up-form/sign-up-form.component'
 
 const routes: Routes = [
-  {path: 'registration', component: SignUpFormComponent},
-  {path: '', redirectTo: 'registration', pathMatch: 'full'}
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  {path: 'tasks', loadChildren: () => import('./task/task.module').then(m => m.TaskModule)},
+  {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
+
 ];
 
 @NgModule({

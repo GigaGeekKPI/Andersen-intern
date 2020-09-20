@@ -1,32 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  serverUrl: string = 'Some url';
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   constructor(private http: HttpClient ) { }
 
-  addUser(form: FormGroup): void {
-    let filteredForm = {};
-
-    for (let prop in form.value) {
-      if(prop !== 'confirm') {
-        filteredForm[prop] = form.value[prop];
-      }
-    }
-
-    let formData = JSON.stringify(filteredForm);
-    console.log(formData);
-    // this.http.post(this.serverUrl, formData, this.httpOptions).subscribe();
-    console.log('Added user');
+  signUp(user: any): Observable<any> {
+    const url = `${environment.baseURL}/auth/signup`;
+    return this.http.post<any>(url, user);
   }
 }
