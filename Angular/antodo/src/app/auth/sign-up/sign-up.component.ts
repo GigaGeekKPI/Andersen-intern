@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private signUpService: AuthService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -66,7 +66,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
       password: this.password.value
     };
     
-    this.signUpService.signUp(user)
+    this.authService.signUp(user)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.router.navigate(['sign-in']));
   }

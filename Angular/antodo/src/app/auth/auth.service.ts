@@ -15,4 +15,10 @@ export class AuthService {
     const url = `${environment.baseURL}/auth/signup`;
     return this.http.post<User>(url, user);
   }
+
+  signIn(user: User): Observable<User> {
+    const url = `${environment.baseURL}/auth/signin`;
+    console.log('Signed In with', user.username)
+    return this.http.post<User>(url, user);
+  }
 }
