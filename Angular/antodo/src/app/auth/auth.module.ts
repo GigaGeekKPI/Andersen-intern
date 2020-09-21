@@ -22,8 +22,6 @@ import { AuthRoutingModule } from './auth-routing.module';
     MatInputModule,
     MatCardModule,
     AuthRoutingModule
-  ],
-  exports: [SignUpComponent],
-  providers: []
+  ]
 })
 export class AuthModule { }

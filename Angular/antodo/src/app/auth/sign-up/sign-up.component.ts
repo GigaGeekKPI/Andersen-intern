@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators'
 import { AuthService } from '../auth.service';
-
 import { passwordValidator } from '../passwordValidator';
+import { User } from '../User';
 
 @Component({
   selector: 'app-sign-up',
@@ -61,10 +61,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const user = {
-      username: this.signUpForm.controls.name.value,
-      password: this.signUpForm.controls.password.value
-    }
+    const user: User = {
+      username: this.name.value,
+      password: this.password.value
+    };
+    
     this.signUpService.signUp(user)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.router.navigate(['sign-in']));
