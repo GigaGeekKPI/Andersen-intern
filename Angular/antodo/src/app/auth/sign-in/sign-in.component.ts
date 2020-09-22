@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { pipe, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { User } from '../user';
@@ -57,7 +57,7 @@ export class SignInComponent implements OnInit {
 
     this.authService.signIn(user)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.router.navigate(['sign-up']));
+      .subscribe(() => this.router.navigate(['/tasks']));
   }
 
 }

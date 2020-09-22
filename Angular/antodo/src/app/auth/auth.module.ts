@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -10,10 +9,12 @@ import { MatCardModule } from '@angular/material/card';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthRoutingModule } from './auth-routing.module';
 
-
+import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
+import { AuthComponent } from './auth.component';
 
 @NgModule({
-  declarations: [SignUpComponent, SignInComponent],
+  declarations: [SignUpComponent, SignInComponent, AuthComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,6 +23,7 @@ import { AuthRoutingModule } from './auth-routing.module';
     MatInputModule,
     MatCardModule,
     AuthRoutingModule
-  ]
+  ],
+  providers: [AuthGuard]
 })
 export class AuthModule { }
