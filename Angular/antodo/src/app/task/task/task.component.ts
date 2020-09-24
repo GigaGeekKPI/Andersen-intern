@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-task',
@@ -7,12 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskComponent implements OnInit {
 
-  templateData =  {
-    title: "Create interceptor",
-    description: "Read docs and write code",
-    status: "OPEN",
-  }
-
+  @Input()
+  task: any;
+  
   constructor() { }
 
   ngOnInit(): void {

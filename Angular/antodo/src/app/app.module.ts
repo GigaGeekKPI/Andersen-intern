@@ -30,11 +30,13 @@ import { UnauthorizedInterceptorService } from './unauthorized-interceptor.servi
       }
     })
   ],
-  providers: [{
+  providers: [
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }, {
+  }, 
+  {
     provide: HTTP_INTERCEPTORS,
     useClass: UnauthorizedInterceptorService,
     multi: true
