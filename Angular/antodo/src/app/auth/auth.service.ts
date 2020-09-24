@@ -8,6 +8,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { tap } from 'rxjs/operators';
 import { tokenGetter } from '../utils/tokenGetter';
 import { HttpGetTokenResponse } from '../utils/HttpGetTokenResponse';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ import { HttpGetTokenResponse } from '../utils/HttpGetTokenResponse';
 export class AuthService {
   private helper: JwtHelperService;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.helper = new JwtHelperService();
   }
 
@@ -31,6 +35,11 @@ export class AuthService {
         localStorage.setItem('access_token', tokenObj.accessToken);
       })
     );
+  }
+
+  logOut(): void {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['auth']);
   }
 
   isUserAuthenticated(): boolean {

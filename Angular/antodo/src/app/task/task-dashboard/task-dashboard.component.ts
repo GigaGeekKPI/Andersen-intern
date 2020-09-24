@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { TaskService } from '../task.service';
 
 @Component({
@@ -7,10 +8,13 @@ import { TaskService } from '../task.service';
   styleUrls: ['./task-dashboard.component.css']
 })
 export class TaskDashboardComponent implements OnInit {
-
   tasks: any;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private authService: AuthService) { }
+
+  logOut(): void {
+    this.authService.logOut();
+  }
 
   ngOnInit(): void {
     this.taskService.getAllTasks().subscribe(data => {
