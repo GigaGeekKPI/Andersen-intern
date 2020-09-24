@@ -11,10 +11,9 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
-import { AuthComponent } from './auth.component';
 
 @NgModule({
-  declarations: [SignUpComponent, SignInComponent, AuthComponent],
+  declarations: [SignUpComponent, SignInComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -4,10 +4,8 @@ import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { AuthComponent } from './auth.component';
 
-
-const routes11: Routes = [
+const routes: Routes = [
   {
     path: '',
     children: [
@@ -31,7 +29,7 @@ const routes11: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes11)
+    RouterModule.forChild(routes)
   ],
   exports: [RouterModule]
 })

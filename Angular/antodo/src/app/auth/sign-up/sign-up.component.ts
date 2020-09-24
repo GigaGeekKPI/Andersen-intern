@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators'
 import { AuthService } from '../auth.service';
 import { passwordValidator } from '../passwordValidator';
-import { User } from '../User';
+import { User } from '../../utils/User';
 
 @Component({
   selector: 'app-sign-up',
@@ -37,12 +37,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  initForm() {
+  initForm(): void {
     this.signUpForm = this.fb.group({
       name: ['', [
         Validators.required,
@@ -60,12 +60,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }, { validator: passwordValidator });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const user: User = {
       username: this.name.value,
       password: this.password.value
     };
-    
+
     this.authService.signUp(user)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.router.navigate(['sign-in']));

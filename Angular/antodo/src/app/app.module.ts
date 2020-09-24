@@ -8,7 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from "@auth0/angular-jwt";
 import { environment } from 'src/environments/environment';
-import { tokenGetter } from './auth/utils/tokenGetter';
+import { tokenGetter } from './utils/tokenGetter';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { UnauthorizedInterceptorService } from './unauthorized-interceptor.service';

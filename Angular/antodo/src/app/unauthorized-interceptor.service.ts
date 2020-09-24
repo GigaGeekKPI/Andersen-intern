@@ -1,23 +1,15 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UnauthorizedInterceptorService implements HttpInterceptor {
 
   constructor() { }
 
-  handler401HttpError(error: HttpErrorResponse, caught) {
-    console.log(`Error status: ${error.status}`);
-    // return error;
-  }
-
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    return next.handle(request)
-    // .pipe(
-    //   catchError(this.handler401HttpError)
-    // )
+    return next.handle(request);
   }
 }
+// реализовать интерсептор, logOut

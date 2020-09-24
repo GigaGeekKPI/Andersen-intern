@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 
-export function passwordValidator(group: FormGroup) {
+export function passwordValidator(group: FormGroup): object {
     let password = group.get('password');
     let confirmPassword = group.get('confirm');
 

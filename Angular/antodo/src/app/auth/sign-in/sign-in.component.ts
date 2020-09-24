@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { pipe, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
-import { User } from '../user';
+import { User } from '../../utils/User';
 
 @Component({
   selector: 'app-sign-in',
@@ -33,23 +33,23 @@ export class SignInComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  initForm() {
+  initForm(): void {
     this.signInForm = this.fb.group({
       name: ['', [
         Validators.required
       ]],
-      password: ['', 
+      password: ['',
         Validators.required
       ]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const user: User = {
       username: this.name.value,
       password: this.password.value
