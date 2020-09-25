@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -10,10 +10,8 @@ export class UnauthorizedInterceptorService implements HttpInterceptor {
 
   handleHttpError401(err: HttpErrorResponse) {
     if(err.status === 401) {
-      console.log(err.statusText)
+      return throwError(err);
     }
-    console.log(err);
-    return of(err);
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {

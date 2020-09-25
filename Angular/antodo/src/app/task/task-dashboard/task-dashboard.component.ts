@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Task } from 'src/app/utils/Task';
 import { TaskService } from '../task.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { TaskService } from '../task.service';
   styleUrls: ['./task-dashboard.component.css']
 })
 export class TaskDashboardComponent implements OnInit {
-  tasks: any;
+  tasks$: Observable<Task[]>;
 
   constructor(private taskService: TaskService, private authService: AuthService) { }
 
@@ -17,10 +19,7 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.getAllTasks().subscribe(data => {
-      console.log(data);
-      this.tasks = data;
-    });
+    this.tasks$ = this.taskService.getAllTasks();
   }
 
 }
