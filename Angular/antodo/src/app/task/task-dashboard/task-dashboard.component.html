@@ -1,0 +1,3 @@
+<button mat-raised-button (click)='logOut()' color="warn">Logout</button>
+
+<app-task *ngFor='let task of (tasks$ | async)' [task]='task'>{{task.title}}</app-task>
