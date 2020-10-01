@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Task } from 'src/app/utils/Task';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
 
 @Component({
@@ -11,6 +12,8 @@ import { TaskStatus } from 'src/app/utils/TaskStatus';
 export class ModalDialogComponent implements OnInit {
   taskInfoForm: FormGroup;
   statuses: string[] = Object.values(TaskStatus);
+  task: Task;
+  type: string;
 
   get title() {
     return this.taskInfoForm.get('title')
@@ -26,14 +29,17 @@ export class ModalDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    @Inject(MAT_DIALOG_DATA) private data,
     private fb: FormBuilder,
-  ) { }
+  ) {
+    this.type = this.data.type;
+    this.task = this.data.task;
+  }
 
   ngOnInit(): void {
     this.taskInfoForm = this.fb.group({
-      title: [this.data.task.title, Validators.required],
-      description: [this.data.description, Validators.required],
+      title: [this.task.title, Validators.required],
+      description: [this.task.description, Validators.required],
       status: [TaskStatus.OPEN, Validators.required]
     })
   }
@@ -43,6 +49,9 @@ export class ModalDialogComponent implements OnInit {
   }
 
   saveTask() {
-    this.dialogRef.close(this.taskInfoForm.value)
+    this.dialogRef.close({
+      form: this.taskInfoForm.value,
+      type: this.type
+    });
   }
 }

@@ -2,4 +2,4 @@
 
 <app-task *ngFor='let task of (tasks$ | async)' [task]='task' (click)='createModal(task)'>{{task.title}}</app-task>
 
-<button (click)='createModal(null)'>Show modal</button>
+<button (click)='createModal(null)'>+</button>

@@ -6,6 +6,7 @@ import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -40,8 +41,14 @@ export class TaskDashboardComponent implements OnInit {
     }
     let dialogRef = this.dialog.open(ModalDialogComponent, { data });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.table(result);
+    dialogRef.afterClosed().pipe(filter((val) => val !== undefined)).subscribe(result => {
+
+      if (result.type === 'Create') {
+        console.log('Creating task');
+      } else {
+        console.log('Updating task');
+
+      }
     });
   }
 }
