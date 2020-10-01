@@ -1,5 +1,7 @@
 mat-card {
     width: 70%;
+    margin-top: 20px;
+    cursor: pointer;
 }
 
 mat-card-content {

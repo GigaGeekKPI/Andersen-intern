@@ -8,16 +8,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TaskService } from './task.service';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [TaskDashboardComponent, TaskComponent],
+  declarations: [TaskDashboardComponent, TaskComponent, ModalDialogComponent],
   imports: [
     CommonModule,
     TaskRoutingModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [TaskService]
 })
