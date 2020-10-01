@@ -5,6 +5,7 @@ import { Task } from 'src/app/utils/Task';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TaskStatus } from 'src/app/utils/TaskStatus';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -28,24 +29,19 @@ export class TaskDashboardComponent implements OnInit {
     this.tasks$ = this.taskService.getAllTasks();
   }
 
-  createModal(event) {
-    const dialogRef = this.dialog.open(ModalDialogComponent, (() => {
-      if (event.target.tagName === 'BUTTON') {
-        return {
-          width: '250px',
-          data: { type: 'Create' }
-        }
-      } else {
-        return {
-          width: '250px',
-          data: { type: 'Edit' }
-        }
+  createModal(task: Task) {
+    const data = {
+      type: task ? 'Edit' : 'Create',
+      task: {
+        title: task?.title,
+        description: task?.description,
+        status: task?.status
       }
     }
-    )());
+    let dialogRef = this.dialog.open(ModalDialogComponent, { data });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.table(result);
     });
   }
 }

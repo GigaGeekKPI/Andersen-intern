@@ -32,8 +32,8 @@ export class ModalDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskInfoForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      title: [this.data.task.title, Validators.required],
+      description: [this.data.description, Validators.required],
       status: [TaskStatus.OPEN, Validators.required]
     })
   }
@@ -43,6 +43,6 @@ export class ModalDialogComponent implements OnInit {
   }
 
   saveTask() {
-    this.dialogRef.close(this.taskInfoForm.controls)
+    this.dialogRef.close(this.taskInfoForm.value)
   }
 }

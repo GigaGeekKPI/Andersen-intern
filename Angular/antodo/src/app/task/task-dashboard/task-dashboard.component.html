@@ -1,5 +1,5 @@
 <button mat-raised-button (click)='logOut()' color="warn">Logout</button>
 
-<app-task *ngFor='let task of (tasks$ | async)' [task]='task' (click)='createModal($event)'>{{task.title}}</app-task>
+<app-task *ngFor='let task of (tasks$ | async)' [task]='task' (click)='createModal(task)'>{{task.title}}</app-task>
 
-<button (click)='createModal($event)'>Show modal</button>
+<button (click)='createModal(null)'>Show modal</button>
