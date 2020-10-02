@@ -11,7 +11,7 @@
         <textarea matInput formControlName='description'></textarea>
         <mat-error *ngIf='description.errors?.required'>This field is required</mat-error>
     </mat-form-field>
-    <mat-form-field *ngIf='type === "Edit"'>
+    <mat-form-field *ngIf='type === dialogType.EDIT'>
         <mat-label>Status</mat-label>
         <mat-select formControlName='status'>
             <mat-option *ngFor='let status of statuses' [value]="status">{{status}}</mat-option>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Task } from '../utils/Task';
 
@@ -13,11 +13,14 @@ export class TaskService {
     return this.http.get<Task[]>(`${environment.baseURL}/tasks`);
   }
 
-  getTaskByID() { }
-
-  addTask() { }
+  addTask(task: Task) {
+    return this.http.post<Task>(`${environment.baseURL}/tasks`, task);
+   }
 
   deleteTask() { }
 
-  updateTask() { }
+  updateTask(task) {
+    console.log('Updating task', task);
+    return of();
+   }
 }

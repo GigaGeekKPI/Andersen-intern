@@ -1,8 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from 'src/app/utils/Task';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
+
+// Вынести в отдельный файл
+export enum DialogType {
+  CREATE = 'CREATE',
+  EDIT = 'EDIT'
+}
 
 @Component({
   selector: 'app-modal-dialog',
@@ -12,8 +18,8 @@ import { TaskStatus } from 'src/app/utils/TaskStatus';
 export class ModalDialogComponent implements OnInit {
   taskInfoForm: FormGroup;
   statuses: string[] = Object.values(TaskStatus);
-  task: Task;
   type: string;
+  readonly dialogType = DialogType;
 
   get title() {
     return this.taskInfoForm.get('title')
@@ -31,17 +37,15 @@ export class ModalDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data,
     private fb: FormBuilder,
-  ) {
+  ) { 
     this.type = this.data.type;
-    this.task = this.data.task;
   }
 
   ngOnInit(): void {
-    this.taskInfoForm = this.fb.group({
-      title: [this.task.title, Validators.required],
-      description: [this.task.description, Validators.required],
-      status: [TaskStatus.OPEN, Validators.required]
-    })
+    this.initForm();
+    if(this.data.type === DialogType.EDIT) {
+      this.setExistingTask();
+    }
   }
 
   closeDialog() {
@@ -50,8 +54,20 @@ export class ModalDialogComponent implements OnInit {
 
   saveTask() {
     this.dialogRef.close({
-      form: this.taskInfoForm.value,
-      type: this.type
+      ...this.taskInfoForm.value
     });
+  }
+
+  private initForm() {
+    this.taskInfoForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+    })
+  }
+
+  private setExistingTask() {
+    this.taskInfoForm.addControl('status', new FormControl(''));
+    this.taskInfoForm.setValue({...this.data.task});
+    console.log(this.taskInfoForm);
   }
 }

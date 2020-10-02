@@ -1,12 +1,12 @@
 import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Task } from 'src/app/utils/Task';
-import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
+import { DialogType, ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -30,25 +30,46 @@ export class TaskDashboardComponent implements OnInit {
     this.tasks$ = this.taskService.getAllTasks();
   }
 
-  createModal(task: Task) {
+  addTask() {
     const data = {
-      type: task ? 'Edit' : 'Create',
-      task: {
-        title: task?.title,
-        description: task?.description,
-        status: task?.status
-      }
+      type: DialogType.CREATE
     }
+
     let dialogRef = this.dialog.open(ModalDialogComponent, { data });
 
-    dialogRef.afterClosed().pipe(filter((val) => val !== undefined)).subscribe(result => {
+    dialogRef.afterClosed()
+      .pipe(
+        filter(Boolean),
+        switchMap((task: Task) => this.taskService.addTask(task)),
+        switchMap(() => {
+          this.tasks$ = this.taskService.getAllTasks();
+          return EMPTY;
+        })).subscribe();
+  }
 
-      if (result.type === 'Create') {
-        console.log('Creating task');
-      } else {
-        console.log('Updating task');
-
+  editTask(task: Task) {
+    const data = {
+      type: DialogType.EDIT,
+      task: {
+        title: task.title,
+        description: task.description,
+        status: task.status
       }
-    });
+    };
+
+    let dialogRef = this.dialog.open(ModalDialogComponent, { data });
+
+    dialogRef.afterClosed()
+      .pipe(
+        filter(Boolean),
+        switchMap((task: Task) => this.taskService.updateTask(task)),
+        switchMap(() => {
+          this.tasks$ = this.taskService.getAllTasks();
+          return EMPTY;
+        })).subscribe();
+  }
+
+  deleteTask() {
+
   }
 }
