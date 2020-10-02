@@ -5,7 +5,6 @@ import { Task } from 'src/app/utils/Task';
 import { DialogType, ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskStatus } from 'src/app/utils/TaskStatus';
 import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -74,5 +73,13 @@ export class TaskDashboardComponent implements OnInit {
       this.tasks$ = this.taskService.getAllTasks();
       return EMPTY;
     })).subscribe();
+  }
+
+  updateStatus({ option, id }) {
+    console.log('Updating status', option, id);
+  //   this.taskService.updateTaskStatus(option, id).pipe(switchMap(() => {
+  //     this.tasks$ = this.taskService.getAllTasks();
+  //     return EMPTY;
+  //   })).subscribe();
   }
 }

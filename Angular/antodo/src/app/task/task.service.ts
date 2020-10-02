@@ -15,14 +15,18 @@ export class TaskService {
 
   addTask(task: Task) {
     return this.http.post<Task>(`${environment.baseURL}/tasks`, task);
-   }
+  }
 
   deleteTask(id) {
     return this.http.delete<Task>(`${environment.baseURL}/tasks/${id}`);
-   }
+  }
 
   updateTask(task) {
     console.log('Updating task', task);
     return of();
-   }
+  }
+
+  updateTaskStatus(status, id) {
+    return this.http.patch(`${environment.baseURL}/tasks/${id}`, status);
+  }
 }

@@ -1,7 +1,7 @@
 <button mat-raised-button (click)='logOut()' color="warn">Logout</button>
 
 <ng-container *ngFor='let task of (tasks$ | async)'>
-    <app-task [task]='task'></app-task>
+    <app-task [task]='task' (selectionChange)='updateStatus($event)'></app-task>
     <button (click)='editTask(task)'>edit</button>
     <button (click)='deleteTask(task.id)'>delete</button>
 </ng-container>
