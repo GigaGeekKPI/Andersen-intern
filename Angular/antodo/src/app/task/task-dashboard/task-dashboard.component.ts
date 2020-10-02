@@ -5,7 +5,7 @@ import { Task } from 'src/app/utils/Task';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { DialogType } from 'src/app/utils/DialogType';
 
@@ -90,4 +90,8 @@ export class TaskDashboardComponent implements OnInit {
     //     return EMPTY;
     //   })).subscribe();
   }
+
+  // showFilteredTasks(query) {
+  //   this.tasks$ = this.taskService.getByQuery(query);
+  // }
 }

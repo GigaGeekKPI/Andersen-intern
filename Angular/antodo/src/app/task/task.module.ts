@@ -14,11 +14,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { SearchComponent } from './search/search.component';
 
 
 
 @NgModule({
-  declarations: [TaskDashboardComponent, TaskComponent, ModalDialogComponent, DeleteDialogComponent],
+  declarations: [TaskDashboardComponent, TaskComponent, ModalDialogComponent, DeleteDialogComponent, SearchComponent],
   imports: [
     CommonModule,
     TaskRoutingModule,

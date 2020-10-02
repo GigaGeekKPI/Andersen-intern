@@ -29,4 +29,8 @@ export class TaskService {
   updateTaskStatus(status, id) {
     return this.http.patch(`${environment.baseURL}/tasks/${id}`, status);
   }
+
+  getByQuery(query) {
+    return this.http.get<Task[]>(`${environment.baseURL}/tasks?search=${query}`)
+  }
 }
