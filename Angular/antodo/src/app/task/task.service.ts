@@ -17,7 +17,9 @@ export class TaskService {
     return this.http.post<Task>(`${environment.baseURL}/tasks`, task);
    }
 
-  deleteTask() { }
+  deleteTask(id) {
+    return this.http.delete<Task>(`${environment.baseURL}/tasks/${id}`);
+   }
 
   updateTask(task) {
     console.log('Updating task', task);

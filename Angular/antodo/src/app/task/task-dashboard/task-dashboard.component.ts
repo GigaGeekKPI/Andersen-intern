@@ -69,7 +69,10 @@ export class TaskDashboardComponent implements OnInit {
         })).subscribe();
   }
 
-  deleteTask() {
-
+  deleteTask(id) {
+    this.taskService.deleteTask(id).pipe(switchMap(() => {
+      this.tasks$ = this.taskService.getAllTasks();
+      return EMPTY;
+    })).subscribe();
   }
 }
