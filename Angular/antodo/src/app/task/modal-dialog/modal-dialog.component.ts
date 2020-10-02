@@ -1,14 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Task } from 'src/app/utils/Task';
+import { DialogType } from 'src/app/utils/DialogType';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
-
-// Вынести в отдельный файл
-export enum DialogType {
-  CREATE = 'CREATE',
-  EDIT = 'EDIT'
-}
 
 @Component({
   selector: 'app-modal-dialog',

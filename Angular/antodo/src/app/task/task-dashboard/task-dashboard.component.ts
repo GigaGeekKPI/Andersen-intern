@@ -1,11 +1,13 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { EMPTY, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Task } from 'src/app/utils/Task';
-import { DialogType, ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
+import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, switchMap } from 'rxjs/operators';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { DialogType } from 'src/app/utils/DialogType';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -68,18 +70,24 @@ export class TaskDashboardComponent implements OnInit {
         })).subscribe();
   }
 
-  deleteTask(id) {
-    this.taskService.deleteTask(id).pipe(switchMap(() => {
-      this.tasks$ = this.taskService.getAllTasks();
-      return EMPTY;
-    })).subscribe();
+  deleteTask(id: number) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().pipe(
+      filter(Boolean),
+      switchMap(() => this.taskService.deleteTask(id)),
+      switchMap(() => {
+        this.tasks$ = this.taskService.getAllTasks();
+        return EMPTY
+      })
+    ).subscribe();
   }
 
   updateStatus({ option, id }) {
     console.log('Updating status', option, id);
-  //   this.taskService.updateTaskStatus(option, id).pipe(switchMap(() => {
-  //     this.tasks$ = this.taskService.getAllTasks();
-  //     return EMPTY;
-  //   })).subscribe();
+    //   this.taskService.updateTaskStatus(option, id).pipe(switchMap(() => {
+    //     this.tasks$ = this.taskService.getAllTasks();
+    //     return EMPTY;
+    //   })).subscribe();
   }
 }
