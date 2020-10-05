@@ -1,16 +1,32 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Task } from '../utils/Task';
+import { TaskStatus } from '../utils/TaskStatus';
 
 @Injectable()
 export class TaskService {
 
+  private taskFilter$: BehaviorSubject<any> = new BehaviorSubject<any>({ search: '', status: TaskStatus.OPEN });
+
   constructor(private http: HttpClient) { }
 
+  getTaskFilter() {
+    return this.taskFilter$.getValue();
+  }
+  setTaskFilter(filters) {
+    this.taskFilter$.next(filters);
+  }
+
   getAllTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${environment.baseURL}/tasks`);
+    const { search, status } = this.getTaskFilter();
+
+    let params = new HttpParams().set('status', status);
+    if (search) {
+      params = new HttpParams().set('search', search).set('status', status);
+    }
+    return this.http.get<Task[]>(`${environment.baseURL}/tasks`, { params });
   }
 
   addTask(task: Task) {

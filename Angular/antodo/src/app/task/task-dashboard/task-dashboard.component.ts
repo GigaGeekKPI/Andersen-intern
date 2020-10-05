@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { DialogType } from 'src/app/utils/DialogType';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -16,6 +17,7 @@ import { DialogType } from 'src/app/utils/DialogType';
 })
 export class TaskDashboardComponent implements OnInit {
   tasks$: Observable<Task[]>;
+  filters;
 
   constructor(
     private taskService: TaskService,
@@ -28,6 +30,7 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filters = this.taskService.getTaskFilter();
     this.tasks$ = this.taskService.getAllTasks();
   }
 
@@ -83,6 +86,11 @@ export class TaskDashboardComponent implements OnInit {
     ).subscribe();
   }
 
+  filterTasks(filters) {
+    this.taskService.setTaskFilter(filters);
+    this.tasks$ = this.taskService.getAllTasks();
+  }
+
   updateStatus({ option, id }) {
     console.log('Updating status', option, id);
     //   this.taskService.updateTaskStatus(option, id).pipe(switchMap(() => {
@@ -90,8 +98,4 @@ export class TaskDashboardComponent implements OnInit {
     //     return EMPTY;
     //   })).subscribe();
   }
-
-  // showFilteredTasks(query) {
-  //   this.tasks$ = this.taskService.getByQuery(query);
-  // }
 }

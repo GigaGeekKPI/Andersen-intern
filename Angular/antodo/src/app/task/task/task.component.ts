@@ -12,6 +12,7 @@ export class TaskComponent implements OnInit {
 
   @Input()
   task: Task;
+  
   statuses: string[] = Object.values(TaskStatus);
 
   @Output()
