@@ -12,16 +12,29 @@ export class TaskComponent implements OnInit {
 
   @Input()
   task: Task;
-  
+
   statuses: string[] = Object.values(TaskStatus);
 
   @Output()
   selectionChange = new EventEmitter();
 
+  @Output()
+  editTask: EventEmitter<Task> = new EventEmitter<Task>();
+  
+  @Output()
+  deleteTask: EventEmitter<number> = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit(): void { }
 
+  editHandler(task) {
+    this.editTask.emit(task);
+  }
+  
+  deleteHandler(id) {
+    this.deleteTask.emit(id);
+  }
 
   statusChange(option): void {
     this.selectionChange.emit({

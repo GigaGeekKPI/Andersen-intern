@@ -19,6 +19,11 @@ export class TaskFilterComponent implements OnInit, OnDestroy {
   taskFilter: FormGroup;
   destroy$: Subject<void> = new Subject<void>();
 
+  statusClasses = {
+    open: true,
+    inProgress: false,
+    done: false
+  }
 
   constructor(private fb: FormBuilder) { }
 
@@ -26,13 +31,6 @@ export class TaskFilterComponent implements OnInit, OnDestroy {
     this.initForm();
     this.handleFiltersChange();
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if(changes.filters && this.taskFilter) {
-  //     console.log(changes.filters)
-  //     this.taskFilter.setValue({...this.filters}, {emitEvent: false});
-  //   }
-  // }
 
   ngOnDestroy(): void {
     this.destroy$.next();
