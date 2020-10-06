@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Task } from 'src/app/utils/Task';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { TaskService } from '../task.service';
 import { MatDialog } from '@angular/material/dialog';
-import { debounceTime, filter, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { DialogType } from 'src/app/utils/DialogType';
 import { FormControl } from '@angular/forms';
@@ -16,9 +16,10 @@ import { Filters } from 'src/app/utils/Filters';
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.css']
 })
-export class TaskDashboardComponent implements OnInit {
+export class TaskDashboardComponent implements OnInit, OnDestroy {
   tasks$: Observable<Task[]>;
   filters: Filters;
+  destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private taskService: TaskService,
@@ -35,6 +36,11 @@ export class TaskDashboardComponent implements OnInit {
     this.tasks$ = this.taskService.getAllTasks();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   addTask(): void {
     const data = {
       type: DialogType.CREATE
@@ -44,6 +50,7 @@ export class TaskDashboardComponent implements OnInit {
 
     dialogRef.afterClosed()
       .pipe(
+        takeUntil(this.destroy$),
         filter(Boolean),
         switchMap((task: Task) => this.taskService.addTask(task)),
         switchMap(() => {
@@ -66,6 +73,7 @@ export class TaskDashboardComponent implements OnInit {
 
     dialogRef.afterClosed()
       .pipe(
+        takeUntil(this.destroy$),
         filter(Boolean),
         switchMap((task: Task) => this.taskService.updateTask(task)),
         switchMap(() => {
@@ -78,6 +86,7 @@ export class TaskDashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDialogComponent);
 
     dialogRef.afterClosed().pipe(
+      takeUntil(this.destroy$),
       filter(Boolean),
       switchMap(() => this.taskService.deleteTask(id)),
       switchMap(() => {
@@ -93,8 +102,9 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   updateStatus({ option, id }): void {
-    console.log('Updating status', option, id);
-    //   this.taskService.updateTaskStatus(option, id).pipe(switchMap(() => {
+    //   this.taskService.updateTaskStatus(option, id).pipe(
+    //     takeUntil(this.destroy$),
+    //     switchMap(() => {
     //     this.tasks$ = this.taskService.getAllTasks();
     //     return EMPTY;
     //   })).subscribe();

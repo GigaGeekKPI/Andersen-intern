@@ -40,7 +40,6 @@ export class TaskService {
   }
 
   updateTask(task: Task): Observable<any> {
-    console.log('Updating task', task);
     return of();
   }
 
