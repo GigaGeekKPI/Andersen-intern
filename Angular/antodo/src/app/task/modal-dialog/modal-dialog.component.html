@@ -18,6 +18,6 @@
         </mat-select>
     </mat-form-field>
     
-    <button mat-raised-button [disabled]="!taskInfoForm.valid" (click)='saveTask()'>Save</button>
+    <button mat-raised-button [disabled]="taskInfoForm.invalid" (click)='saveTask()'>Save</button>
     <button mat-button color='warn' (click)='closeDialog()'>Cancel</button>
 </form>
