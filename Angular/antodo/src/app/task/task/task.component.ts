@@ -9,21 +9,17 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent {
-
   @Input()
   task: Task;
 
-  statuses: string[] = Object.values(TaskStatus);
-
   @Output()
-  selectionChange = new EventEmitter();
-
+  selectionChange: EventEmitter<any> = new EventEmitter();
   @Output()
   editTask: EventEmitter<Task> = new EventEmitter<Task>();
-  
   @Output()
   deleteTask: EventEmitter<number> = new EventEmitter<number>();
 
+  statuses: string[] = Object.values(TaskStatus);
   statusClasses = {
     open: false,
     progress: false,

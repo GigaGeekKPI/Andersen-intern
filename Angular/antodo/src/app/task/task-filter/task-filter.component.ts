@@ -11,7 +11,6 @@ import { TaskStatus } from 'src/app/utils/TaskStatus';
   styleUrls: ['./task-filter.component.css']
 })
 export class TaskFilterComponent implements OnInit, OnDestroy {
-
   @Input() filters;
 
   @Output() filterChange: EventEmitter<void> = new EventEmitter();
