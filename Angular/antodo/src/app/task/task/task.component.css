@@ -3,6 +3,18 @@ mat-card {
     flex-grow: 1;
 }
 
+.open {
+    border-left: 15px solid #536DFE;
+}
+
+.progress {
+    border-left: 15px solid orange;
+}
+
+.done {
+    border-left: 15px solid #1fffb4;
+}
+
 mat-card-content {
     display: flex;
     justify-content: space-between;

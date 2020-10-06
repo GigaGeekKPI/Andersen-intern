@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '../../utils/Task';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
-import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-task',
@@ -23,6 +22,12 @@ export class TaskComponent implements OnInit {
   
   @Output()
   deleteTask: EventEmitter<number> = new EventEmitter<number>();
+
+  statusClasses = {
+    open: false,
+    progress: false,
+    done: true
+  }
 
   constructor() { }
 

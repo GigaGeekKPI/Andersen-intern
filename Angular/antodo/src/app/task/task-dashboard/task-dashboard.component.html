@@ -17,14 +17,14 @@
         </section>
         <main class='task-container'>
             <app-task *ngFor='let task of (tasks$ | async)' 
-                [task]='task' 
+                [task]='task'
                 (selectionChange)='updateStatus($event)'
                 (editTask)='editTask($event)' 
                 (deleteTask)='deleteTask($event)'>
             </app-task>
         </main>
     </article>
-    
+
     <footer>
         <div class="footer-content">
             <div class='logo-container'>
