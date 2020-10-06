@@ -9,6 +9,7 @@ import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { DialogType } from 'src/app/utils/DialogType';
 import { FormControl } from '@angular/forms';
+import { Filters } from 'src/app/utils/Filters';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -17,7 +18,7 @@ import { FormControl } from '@angular/forms';
 })
 export class TaskDashboardComponent implements OnInit {
   tasks$: Observable<Task[]>;
-  filters;
+  filters: Filters;
 
   constructor(
     private taskService: TaskService,
@@ -86,7 +87,7 @@ export class TaskDashboardComponent implements OnInit {
     ).subscribe();
   }
 
-  filterTasks(filters): void {
+  filterTasks(filters: Filters): void {
     this.taskService.setTaskFilter(filters);
     this.tasks$ = this.taskService.getAllTasks();
   }

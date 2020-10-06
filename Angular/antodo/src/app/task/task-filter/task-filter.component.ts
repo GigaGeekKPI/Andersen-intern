@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { emit } from 'process';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Filters } from 'src/app/utils/Filters';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
 
 @Component({
@@ -11,9 +12,9 @@ import { TaskStatus } from 'src/app/utils/TaskStatus';
   styleUrls: ['./task-filter.component.css']
 })
 export class TaskFilterComponent implements OnInit, OnDestroy {
-  @Input() filters;
+  @Input() filters: Filters;
 
-  @Output() filterChange: EventEmitter<void> = new EventEmitter();
+  @Output() filterChange: EventEmitter<Filters> = new EventEmitter<Filters>();
 
   statuses: string[] = Object.values(TaskStatus);
   taskFilter: FormGroup;
@@ -37,14 +38,14 @@ export class TaskFilterComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private initForm() {
+  private initForm(): void {
     this.taskFilter = this.fb.group({
       search: [this.filters.search],
       status: [this.filters.status]
     })
   }
 
-  handleFiltersChange() {
+  handleFiltersChange(): void {
     this.taskFilter.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(val => this.filterChange.emit(val));
