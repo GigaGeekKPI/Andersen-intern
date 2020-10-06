@@ -16,7 +16,6 @@ import { TaskService } from '../task.service';
   }]
 })
 export class SearchComponent implements OnInit, ControlValueAccessor {
-
   searchInput: FormControl = new FormControl('');
 
   writeValue(val: string): void {
@@ -42,9 +41,7 @@ export class SearchComponent implements OnInit, ControlValueAccessor {
 
   handleTouched(): void { }
 
-  handleChange(val: string): void {
-
-  }
+  handleChange(val: string): void { }
 
   private handleSearchInputChanges(): void {
     this.searchInput.valueChanges

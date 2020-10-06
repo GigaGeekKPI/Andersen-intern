@@ -7,7 +7,6 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./delete-dialog.component.css']
 })
 export class DeleteDialogComponent {
-
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>) { }
 
   closeDialog(): void {

@@ -31,13 +31,13 @@ export class ModalDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data,
     private fb: FormBuilder,
-  ) { 
+  ) {
     this.type = this.data.type;
   }
 
   ngOnInit(): void {
     this.initForm();
-    if(this.data.type === DialogType.EDIT) {
+    if (this.data.type === DialogType.EDIT) {
       this.setExistingTask();
     }
   }
@@ -61,7 +61,6 @@ export class ModalDialogComponent implements OnInit {
 
   private setExistingTask(): void {
     this.taskInfoForm.addControl('status', new FormControl(''));
-    this.taskInfoForm.setValue({...this.data.task});
-    console.log(this.taskInfoForm);
+    this.taskInfoForm.setValue({ ...this.data.task });
   }
 }

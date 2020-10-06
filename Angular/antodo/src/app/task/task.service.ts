@@ -7,7 +7,6 @@ import { TaskStatus } from '../utils/TaskStatus';
 
 @Injectable()
 export class TaskService {
-
   private taskFilter$: BehaviorSubject<any> = new BehaviorSubject<any>({ search: '', status: TaskStatus.OPEN });
 
   constructor(private http: HttpClient) { }
@@ -42,11 +41,11 @@ export class TaskService {
     return of();
   }
 
-  updateTaskStatus(status: string, id:number): Observable<any> {
+  updateTaskStatus(status: string, id: number): Observable<any> {
     return this.http.patch(`${environment.baseURL}/tasks/${id}`, status);
   }
 
-  getByQuery(query:string): Observable<Task[]> {
+  getByQuery(query: string): Observable<Task[]> {
     return this.http.get<Task[]>(`${environment.baseURL}/tasks?search=${query}`)
   }
 }
