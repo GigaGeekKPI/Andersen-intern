@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators'
@@ -15,13 +15,13 @@ import { User } from '../../utils/User';
 export class SignUpComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup;
 
-  get name() {
+  get name(): AbstractControl {
     return this.signUpForm.get('name');
   }
-  get password() {
+  get password(): AbstractControl {
     return this.signUpForm.get('password');
   }
-  get confirm() {
+  get confirm(): AbstractControl {
     return this.signUpForm.get('confirm');
   }
 

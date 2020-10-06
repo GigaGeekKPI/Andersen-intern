@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit, ControlValueAccessor {
 
   searchInput: FormControl = new FormControl('');
 
-  writeValue(val: string) {
+  writeValue(val: string): void {
     this.searchInput.setValue(val);
     this.handleChange(val);
   }
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit, ControlValueAccessor {
     this.handleChange = fn;
   }
 
-  registerOnTouched(fn: () => void) {
+  registerOnTouched(fn: () => void): void {
     this.handleTouched = fn
   }
 
@@ -40,13 +40,13 @@ export class SearchComponent implements OnInit, ControlValueAccessor {
   }
 
 
-  handleTouched() { }
+  handleTouched(): void { }
 
-  handleChange(val: string) {
+  handleChange(val: string): void {
 
   }
 
-  private handleSearchInputChanges() {
+  private handleSearchInputChanges(): void {
     this.searchInput.valueChanges
       .pipe(
         debounceTime(300),

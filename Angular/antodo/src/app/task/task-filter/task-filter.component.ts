@@ -13,7 +13,7 @@ import { TaskStatus } from 'src/app/utils/TaskStatus';
 export class TaskFilterComponent implements OnInit, OnDestroy {
   @Input() filters;
 
-  @Output() filterChange = new EventEmitter();
+  @Output() filterChange: EventEmitter<void> = new EventEmitter();
   
   statuses: string[] = Object.values(TaskStatus);
   taskFilter: FormGroup;

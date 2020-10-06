@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '../../utils/Task';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-task',
@@ -31,15 +32,15 @@ export class TaskComponent {
 
   constructor() { }
 
-  editHandler(task) {
+  editHandler(task: Task): void {
     this.editTask.emit(task);
   }
   
-  deleteHandler(id) {
+  deleteHandler(id: number): void {
     this.deleteTask.emit(id);
   }
 
-  statusChange(option): void {
+  statusChange(option: MatSelectChange): void {
     this.selectionChange.emit({
       option: option.value,
       id: this.task.id

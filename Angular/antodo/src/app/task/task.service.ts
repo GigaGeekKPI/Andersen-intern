@@ -12,10 +12,10 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  getTaskFilter() {
+  getTaskFilter(): any {
     return this.taskFilter$.getValue();
   }
-  setTaskFilter(filters) {
+  setTaskFilter(filters): void {
     this.taskFilter$.next(filters);
   }
 
@@ -29,24 +29,24 @@ export class TaskService {
     return this.http.get<Task[]>(`${environment.baseURL}/tasks`, { params });
   }
 
-  addTask(task: Task) {
+  addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(`${environment.baseURL}/tasks`, task);
   }
 
-  deleteTask(id) {
+  deleteTask(id: number): Observable<Task> {
     return this.http.delete<Task>(`${environment.baseURL}/tasks/${id}`);
   }
 
-  updateTask(task) {
+  updateTask(task: Task): Observable<any> {
     console.log('Updating task', task);
     return of();
   }
 
-  updateTaskStatus(status, id) {
+  updateTaskStatus(status: string, id:number): Observable<any> {
     return this.http.patch(`${environment.baseURL}/tasks/${id}`, status);
   }
 
-  getByQuery(query) {
+  getByQuery(query:string): Observable<Task[]> {
     return this.http.get<Task[]>(`${environment.baseURL}/tasks?search=${query}`)
   }
 }

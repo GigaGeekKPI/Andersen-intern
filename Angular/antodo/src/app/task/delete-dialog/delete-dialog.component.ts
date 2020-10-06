@@ -10,11 +10,11 @@ export class DeleteDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>) { }
 
-  closeDialog() {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 
-  confirm() {
+  confirm(): void {
     this.dialogRef.close(true);
   }
 }

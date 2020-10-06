@@ -34,7 +34,7 @@ export class TaskDashboardComponent implements OnInit {
     this.tasks$ = this.taskService.getAllTasks();
   }
 
-  addTask() {
+  addTask(): void {
     const data = {
       type: DialogType.CREATE
     }
@@ -51,7 +51,7 @@ export class TaskDashboardComponent implements OnInit {
         })).subscribe();
   }
 
-  editTask(task: Task) {
+  editTask(task: Task): void {
     const data = {
       type: DialogType.EDIT,
       task: {
@@ -73,7 +73,7 @@ export class TaskDashboardComponent implements OnInit {
         })).subscribe();
   }
 
-  deleteTask(id: number) {
+  deleteTask(id: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent);
 
     dialogRef.afterClosed().pipe(
@@ -86,12 +86,12 @@ export class TaskDashboardComponent implements OnInit {
     ).subscribe();
   }
 
-  filterTasks(filters) {
+  filterTasks(filters): void {
     this.taskService.setTaskFilter(filters);
     this.tasks$ = this.taskService.getAllTasks();
   }
 
-  updateStatus({ option, id }) {
+  updateStatus({ option, id }): void {
     console.log('Updating status', option, id);
     //   this.taskService.updateTaskStatus(option, id).pipe(switchMap(() => {
     //     this.tasks$ = this.taskService.getAllTasks();

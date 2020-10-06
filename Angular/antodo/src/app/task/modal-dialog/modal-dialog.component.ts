@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogType } from 'src/app/utils/DialogType';
 import { TaskStatus } from 'src/app/utils/TaskStatus';
@@ -15,15 +15,15 @@ export class ModalDialogComponent implements OnInit {
   type: string;
   readonly dialogType = DialogType;
 
-  get title() {
+  get title(): AbstractControl {
     return this.taskInfoForm.get('title')
   }
 
-  get description() {
+  get description(): AbstractControl {
     return this.taskInfoForm.get('description')
   }
 
-  get status() {
+  get status(): AbstractControl {
     return this.taskInfoForm.get('status')
   }
 
@@ -42,24 +42,24 @@ export class ModalDialogComponent implements OnInit {
     }
   }
 
-  closeDialog() {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 
-  saveTask() {
+  saveTask(): void {
     this.dialogRef.close({
       ...this.taskInfoForm.value
     });
   }
 
-  private initForm() {
+  private initForm(): void {
     this.taskInfoForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
     })
   }
 
-  private setExistingTask() {
+  private setExistingTask(): void {
     this.taskInfoForm.addControl('status', new FormControl(''));
     this.taskInfoForm.setValue({...this.data.task});
     console.log(this.taskInfoForm);
