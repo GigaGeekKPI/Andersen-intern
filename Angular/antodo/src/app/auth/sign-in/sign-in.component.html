@@ -25,7 +25,7 @@
                 </mat-error>
             </mat-form-field>
             
-            <button mat-raised-button [disabled]="!signInForm.valid" (click)='onSubmit()'>Login</button>
+            <button mat-raised-button [disabled]="signInForm.invalid" (click)='onSubmit()'>Login</button>
         </form>
         <p>Don't have an account ? <a routerLink='../sign-up'>Go to Sign up</a></p>
     </mat-card>

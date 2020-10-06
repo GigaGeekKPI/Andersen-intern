@@ -5,11 +5,10 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class UnauthorizedInterceptorService implements HttpInterceptor {
-
   constructor() { }
 
   handleHttpError401(err: HttpErrorResponse) {
-    if(err.status === 401) {
+    if (err.status === 401) {
       return throwError(err);
     }
   }

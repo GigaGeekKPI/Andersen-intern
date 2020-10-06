@@ -12,7 +12,7 @@ export class TasksService {
   constructor(
     @InjectRepository(TaskRepository)
     private taskRepository: TaskRepository,
-  ) {}
+  ) { }
 
   async getTasks(
     filterDto: GetTasksFilterDto,
