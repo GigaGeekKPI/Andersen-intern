@@ -7,7 +7,7 @@ import { TaskStatus } from 'src/app/utils/TaskStatus';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
 
   @Input()
   task: Task;
@@ -30,8 +30,6 @@ export class TaskComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit(): void { }
 
   editHandler(task) {
     this.editTask.emit(task);
