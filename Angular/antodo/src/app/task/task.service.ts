@@ -39,12 +39,12 @@ export class TaskService {
     return this.http.delete<Task>(`${environment.baseURL}/tasks/${id}`);
   }
 
-  updateTask(task: Task): Observable<any> {
-    return of();
+  updateTask(task: Task): Observable<Task> {
+    return this.http.put<Task>(`${environment.baseURL}/tasks`, task);
   }
 
   updateTaskStatus(status: string, id: number): Observable<any> {
-    return this.http.patch(`${environment.baseURL}/tasks/${id}`, status);
+    return this.http.patch(`${environment.baseURL}/tasks/${id}/status`, { status: status });
   }
 
   getByQuery(query: string): Observable<Task[]> {
