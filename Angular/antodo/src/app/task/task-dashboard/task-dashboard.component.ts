@@ -62,6 +62,7 @@ export class TaskDashboardComponent implements OnInit, OnDestroy {
   editTask(task: Task): void {
     const data = {
       type: DialogType.EDIT,
+      id: task.id,
       task: {
         title: task.title,
         description: task.description,
@@ -102,11 +103,11 @@ export class TaskDashboardComponent implements OnInit, OnDestroy {
   }
 
   updateStatus({ option, id }): void {
-    //   this.taskService.updateTaskStatus(option, id).pipe(
-    //     takeUntil(this.destroy$),
-    //     switchMap(() => {
-    //     this.tasks$ = this.taskService.getAllTasks();
-    //     return EMPTY;
-    //   })).subscribe();
+      this.taskService.updateTaskStatus(option, id).pipe(
+        takeUntil(this.destroy$),
+        switchMap(() => {
+        this.tasks$ = this.taskService.getAllTasks();
+        return EMPTY;
+      })).subscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe, ParseIntPipe, UseGuards, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe, ParseIntPipe, UseGuards, Logger, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -17,7 +17,7 @@ import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 export class TasksController {
   private logger = new Logger('TasksController');
 
-  constructor(private tasksService: TasksService) {}
+  constructor(private tasksService: TasksService) { }
 
   @Get()
   getTasks(
@@ -61,5 +61,13 @@ export class TasksController {
     @GetUser() user: User,
   ): Promise<Task> {
     return this.tasksService.updateTaskStatus(id, status, user);
+  }
+
+  @Put()
+  updateTask(
+    @Body() task: Task,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.updateTask(task, user);
   }
 }

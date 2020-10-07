@@ -62,4 +62,16 @@ export class TasksService {
     await task.save();
     return task;
   }
+
+  async updateTask(
+    updatedTask: Task,
+    user: User
+  ): Promise<Task> {
+    let task = await this.getTaskById(updatedTask.id, user);
+    task.id = updatedTask.id;
+    task.title = updatedTask.title;
+    task.description = updatedTask.description;
+    await task.save();
+    return task;
+  }
 }

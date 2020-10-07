@@ -48,7 +48,8 @@ export class ModalDialogComponent implements OnInit {
 
   saveTask(): void {
     this.dialogRef.close({
-      ...this.taskInfoForm.value
+      ...this.taskInfoForm.value,
+      id: this.data.id
     });
   }
 
