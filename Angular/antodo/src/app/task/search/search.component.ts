@@ -1,8 +1,6 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, forwardRef, OnInit, } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EMPTY, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-import { Task } from 'src/app/utils/Task';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TaskService } from '../task.service';
 
 @Component({
